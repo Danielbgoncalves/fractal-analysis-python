@@ -10,7 +10,7 @@ O projeto tem como objetivo explorar técnicas matemáticas e computacionais par
 
 ## Conceitos Fundamentais
 
-### 🔷 Dimensão Fractal (FD)
+### Dimensão Fractal (FD)
 
 Mede a **complexidade estrutural de uma imagem em múltiplas escalas**. Uma linha possui dimensão 1, uma superfície lisa tem dimensão 2. Texturas reais podem ter dimensão **fractal não inteira**, como 1.27 ou 1.85, indicando níveis intermediários de complexidade.
 
@@ -18,7 +18,7 @@ Mede a **complexidade estrutural de uma imagem em múltiplas escalas**. Uma linh
 * Para cada tamanho de caixa `r` (3, 5, 7, ..., 41), calcula-se **N(r): a média de pixels semelhantes ao pixel central** dentro da caixa.
 * A **Dimensão Fractal é obtida por regressão log-log** sobre N(r).
 
-### 🔷 Lacunaridade
+### Lacunaridade
 
 Avalia **o quão homogênea ou esburacada é uma textura**, complementando a FD.
 
@@ -31,7 +31,7 @@ Avalia **o quão homogênea ou esburacada é uma textura**, complementando a FD.
   * **M2** = segundo momento
   * [ **Lac(k) = (M2 - M1²)² / M1²** ]
 
-### 🔷 Percolação e Clusterização de Texturas
+### Percolação e Clusterização de Texturas
 
 Analisa **como regiões de pixels semelhantes se conectam espacialmente**.
 
@@ -47,30 +47,30 @@ Analisa **como regiões de pixels semelhantes se conectam espacialmente**.
 
 ## Organização dos Códigos MATLAB Originais
 
-### 🎯 Scripts Principais
+### Scripts Principais
 
 * `ScriptPercLACDF3Distances.m` → Extrai **todas as features** (percolação + lacunaridade + FD).
 * `ScriptLACDF3Distances.m` → Versão reduzida **SEM percolação** (mais rápido).
 
-### 📊 Cálculo de Matrizes de Probabilidade
+### Cálculo de Matrizes de Probabilidade
 
 * `pmr.m` (Minkowski)
 * `pmrEucl.m` (Euclidiana)
 * `pmrManh.m` (Manhattan)
 
-### 🔍 Clusterização e Percolação
+### Clusterização e Percolação
 
 * `clustperc.m` (Minkowski)
 * `clustpercEucl.m` (Euclidiana)
 * `clustpercManh.m` (Manhattan)
 
-### 📈 Extração Final dos Valores
+### Extração Final dos Valores
 
 * `Lacunaridade.m` → Recebe `p(m,k)` e retorna vetor Lac(k)
 * `N.m` → Extrai média N(r) para FD
 * `D.m` → Alternativa direta para FD
 
-### 💾 Salvamento Automatizado
+### Salvamento Automatizado
 
 * `SaveCSVPercoCLACDF3Distances.m` → Agrupa features de **todas as imagens** em um CSV final estruturado para Machine Learning.
 
