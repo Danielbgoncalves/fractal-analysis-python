@@ -1,14 +1,15 @@
 import numpy as np
 
-def pmrEucl(img, maxr):
+def pmrmanh(img, maxr):
     '''
-    Calcula a matriz de probabilidades de uma imagem usano distância eclidiana 
+    Calcula a matriz de probabilidades de uma imagem usanod distância de mannhattan
     img deve ser uma ndarray numpy convertido em uint8 para float64
     maxr é o limite superior do rio, deve ser impar.
     '''
+
     aux = img.astype(np.float64)
-    r = range(3, maxr + 1, 2)
-    p = np.zeros((r[-1]**2, len(r)), dtype=np.float64)
+    r = list(range(3, maxr + 1, 2))
+    p = np.zeros((r[-1] ** 2,len(r)), dtype=np.float64)
 
     for k in range(len(r)):
         rk = r[k]
@@ -25,14 +26,13 @@ def pmrEucl(img, maxr):
 
                 for i in range(xi, xf + 1):
                     for j in range(yi, yf + 1):
-                        dist = np.sqrt(
-                            (aux[i, j, 0] - aux[x, y, 0]**2) + 
-                            (aux[i, j, 1] - aux[x, y, 1]**2) + 
-                            (aux[i, j, 2] - aux[x, y, 2]**2) 
-                        )
+                        dist = abs(aux[i, j, 0] - aux[x, y, 0]) + \
+                               abs(aux[i, j, 1] - aux[x, y, 1]) + \
+                               abs(aux[i, j, 2] - aux[x, y, 2])
+                        
                         if dist <= rk:
                             m += 1
-                p[m-1,k] += 1
-        p[:, k] = p[:, k] / ncaixas
+                p[m, k] += 1
+        p[:, k] /= ncaixas
 
     return p
