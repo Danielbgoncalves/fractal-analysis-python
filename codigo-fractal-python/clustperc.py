@@ -10,16 +10,17 @@ def analisar_um_raio(p, g, h, k, r_k, img_aux):
     '''
     
     ncaixas = (img_aux.shape[0] - r_k + 1) * (img_aux.shape[1] - r_k + 1)
-    if ncaixas <= 0: return (0, 0, 0)
+    if ncaixas <= 0: 
+        return k, 0.0, 0.0, 0.0
 
-    vetBigClusteres = np.zeros(ncaixas) # armazena a ocupação do maior custer na caixa de tamanho k
+    vetBigClusteres = np.zeros(ncaixas, dtype=np.float64) # armazena a ocupação do maior custer na caixa de tamanho k
     ptemp, gtemp = 0, 0
     lim = (r_k / 2) - 0.5
 
     #percorrer os pixels centrais
     caixa_idx = 0
-    for x in range(int(lim), int(img_aux[0] - lim)):
-        for y in range(int(lim), int(img_aux[1] - lim)):
+    for x in range(int(lim), int(img_aux.shape[0] - lim)):
+        for y in range(int(lim), int(img_aux.shape[1] - lim)):
             xi = int( x - lim )
             xf = int( x + lim )
             yi = int( y - lim )
@@ -42,40 +43,51 @@ def analisar_um_raio(p, g, h, k, r_k, img_aux):
                         percCount += 1
                     else:
                         box[a, b] = 0
-        structure = np.assray = ([[0, 1, 0],
-                                  [1, 1, 1],
-                                  [0, 1, 0]])
-        L, ROTULO = label(box, structure=structure)
-        if L > 0:
-            labels = L[L>0]
-            unique_labels, counts = np.unique(labels, return_counts=True)
+
+        structure = np.array([[0, 1, 0],
+                              [1, 1, 1],
+                              [0, 1, 0]], dtype=np.int8)
+        
+        labeled, num_features = label(box, structure=structure)
+
+        labels_pos = labeled[labeled > 0]
+        if labels_pos > 0:
+            _, counts = np.unique(labels_pos, return_counts=True)
             tamanho_maior_cluster = np.max(counts)
         else:
             tamanho_maior_cluster = 0
+
         vetBigClusteres[caixa_idx] = tamanho_maior_cluster/(r_k ** 2)
-        ptemp += ROTULO
+        ptemp += num_features
         if (percCount / r_k ** 2) >= 0.59275:
             gtemp += 1
         caixa_idx += 1
-    p[k] = ptemp / ncaixas
-    g[k] = gtemp / ncaixas
-    h[k] = np.mean (vetBigClusteres)
 
-                
+    p_k = ptemp / ncaixas
+    g_k = gtemp / ncaixas
+    h_k = np.mean (vetBigClusteres)
 
+    return k, p_k, g_k, h_k
 
 
 def clustperc(img, maxr):
     aux = img.astype(np.float64)
     r = list(range(3, maxr + 1, 2)) # [3,5,7,...maxr]
-    g = np.zeros((1, len(r)))   # valores de percolação para cada tamanho de r
-    p = np.zeros((1, len(r)))   # valores de de n aglomerados para cada tamanho de r
-    h = np.zeros((1, len(r)))   # valores do maior aglomerado para cada tamanho de r
+
+    g = np.zeros(len(r))   # valores de percolação para cada tamanho de r
+    p = np.zeros(len(r))   # valores de de n aglomerados para cada tamanho de r
+    h = np.zeros(len(r))   # valores do maior aglomerado para cada tamanho de r
 
     # para cada tamanho caixa *executar em paralelo*
-    p, g, h = Parallel(n_jobs=-1)(
-        delayed(analisar_um_raio)(p, g, h, k, r[k], aux) for k in range(len(r))
+    results = Parallel(n_jobs=-1)(
+        delayed(analisar_um_raio)( k, r[k], aux) for k in range(len(r))
     )
+
+    for (k, p_k, g_k, h_k) in results:
+        p[int(k)] = p_k
+        g[int(k)] = g_k
+        h[int(k)] = h_k
+
 
     AreaCluster = np.trapz(p) # área sobre a curva, uma integral
     AreaPerc = np.trapz(g)
@@ -92,5 +104,7 @@ def clustperc(img, maxr):
     AreaRatioMaxCluster = np.trapz(h[half:])/np.trapz(h[:half])
 
 
-    return MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluster, MaxMaxCluster, SkewnessMaxCluster, AreaMaxCluster, AreaRatioCluster, AreaRatioPerc, MaxCluster, MaxPerc, SkewnessCluster, SkewnessPerc, AreaPerc, AreaCluster, p,g,h
+    return ( MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluster, 
+            MaxMaxCluster, SkewnessMaxCluster, AreaMaxCluster, AreaRatioCluster, AreaRatioPerc, 
+            MaxCluster, MaxPerc, SkewnessCluster, SkewnessPerc, AreaPerc, AreaCluster, p, g, h) 
 
