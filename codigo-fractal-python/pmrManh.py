@@ -1,6 +1,6 @@
 import numpy as np
 
-def pmrmanh(img, maxr):
+def pmrManh(img, maxr):
     '''
     Calcula a matriz de probabilidades de uma imagem usanod distância de mannhattan
     img deve ser uma ndarray numpy convertido em uint8 para float64
