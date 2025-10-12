@@ -1,12 +1,12 @@
-function  [MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluster, MaxMaxCluster, SkewnessMaxCluster, AreaMaxCluster, AreaRatioCluster, AreaRatioPerc, MaxCluster, MaxPerc, SkewnessCluster, SkewnessPerc, AreaPerc, AreaCluster, p,g,h] = clustpercEucl(img,maxr)%inicia função de geração da matriz de prob. com parãmetros imagem e R Max
+function  [MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluster, MaxMaxCluster, SkewnessMaxCluster, AreaMaxCluster, AreaRatioCluster, AreaRatioPerc, MaxCluster, MaxPerc, SkewnessCluster, SkewnessPerc, AreaPerc, AreaCluster, p,g,h] = clustpercEucl(img,maxr)%inicia funï¿½ï¿½o de geraï¿½ï¿½o da matriz de prob. com parï¿½metros imagem e R Max
     aux=double(img);
     r=3:2:maxr; %iterar de r de 3 a R max de 2 em 2
-    g=zeros(1,size(r,2)); %criação de vetor para armazenar os valores de percolação para cada tamanho de r
-    p=zeros(1,size(r,2));%criação de vetor para armazenar os valores de n. aglomerados para cada tamanho de r
-    h=zeros(1,size(r,2)); %vetor para armazenar o valor do maior aglomerado médio para cada tamanho de r
+    g=zeros(1,size(r,2)); %criaï¿½ï¿½o de vetor para armazenar os valores de percolaï¿½ï¿½o para cada tamanho de r
+    p=zeros(1,size(r,2));%criaï¿½ï¿½o de vetor para armazenar os valores de n. aglomerados para cada tamanho de r
+    h=zeros(1,size(r,2)); %vetor para armazenar o valor do maior aglomerado mï¿½dio para cada tamanho de r
     %cada tamanho de caixa
     parfor k=1:size(r,2)
-        vetBigClusters=zeros(1,r(k)^2); %vetor que armazena a ocupação do maior cluster em cada caixa
+        vetBigClusters=zeros(1,r(k)^2); %vetor que armazena a ocupaï¿½ï¿½o do maior cluster em cada caixa
         ptemp=0;
         gtemp=0;
         ncaixas=(size(img,1)-r(k)+1)*(size(img,2)-r(k)+1);
@@ -38,10 +38,10 @@ function  [MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluste
                    end
                end   
                [L,ROTULO] = bwlabel(box,4);
-               [~, F] = mode(L(L>0)); %calcula qual a frequência do maior aglomerado nesta caixa
+               [~, F] = mode(L(L>0)); %calcula qual a frequï¿½ncia do maior aglomerado nesta caixa
                vetBigClusters(caixa) = F/(r(k)^2); %armazena a porcentagem que ele ocupa na caixa
                 ptemp=ptemp+ROTULO;
-                if(percCount/(r(k)^2)>=0.59275) %se o número total de pixels percolantes ofr maior que o limiar
+                if(percCount/(r(k)^2)>=0.59275) %se o nï¿½mero total de pixels percolantes ofr maior que o limiar
                     gtemp=gtemp+1;
                 end                
                 caixa=caixa+1;

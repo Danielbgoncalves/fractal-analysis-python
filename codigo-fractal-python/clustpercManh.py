@@ -4,7 +4,7 @@ from scipy.ndimages import label
 from scipy.stats import skew
 
 
-def analisar_um_raio(p, g, h, k, r_k, img_aux):
+def analisar_um_raio(k, r_k, img_aux):
     '''
     Essa função a análise de cluster/percolação para um único raio ed caixa r_k
     '''
@@ -19,8 +19,8 @@ def analisar_um_raio(p, g, h, k, r_k, img_aux):
 
     #percorrer os pixels centrais
     caixa_idx = 0
-    for x in range(int(lim), int(img_aux.shape[0] - lim)):
-        for y in range(int(lim), int(img_aux.shape[1] - lim)):
+    for x in range(int(lim), int(img_aux.shape[0] - lim) ):
+        for y in range(int(lim), int(img_aux.shape[1] - lim) ):
             xi = int( x - lim )
             xf = int( x + lim )
             yi = int( y - lim )
@@ -34,24 +34,25 @@ def analisar_um_raio(p, g, h, k, r_k, img_aux):
                 b = -1
                 for j in range(yi, yf + 1):
                     b += 1
-                    if(
-                        abs(img_aux[i, j, 0] - img_aux[x, y, 0]) <= r_k and
-                        abs(img_aux[i, j, 1] - img_aux[x, y, 1]) <= r_k and
-                        abs(img_aux[i, j, 2] - img_aux[x, y, 2]) <= r_k
-                    ):
+                    dist = (
+                        abs(img_aux[i, j, 0] - img_aux[x, y, 0]) + \
+                        abs(img_aux[i, j, 1] - img_aux[x, y, 1]) + \
+                        abs(img_aux[i, j, 2] - img_aux[x, y, 2])
+                        )
+                    if dist <= r_k:
                         box[a,b] = 1
                         percCount += 1
                     else:
                         box[a, b] = 0
 
             structure = np.array([[0, 1, 0],
-                                [1, 1, 1],
-                                [0, 1, 0]], dtype=np.int8)
+                                  [1, 1, 1],
+                                  [0, 1, 0]], dtype=np.int8)
             
             labeled, num_features = label(box, structure=structure)
 
             labels_pos = labeled[labeled > 0]
-            if labels_pos > 0:
+            if labels_pos.size > 0:
                 _, counts = np.unique(labels_pos, return_counts=True)
                 tamanho_maior_cluster = np.max(counts)
             else:
