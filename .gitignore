@@ -1,2 +1,40 @@
+# ========================
+# Minhas Pastas a serem Ignoradas
+# ========================
 testes/
+codigos-fractal-matlab/
+
 *.log
+
+# ========================
+# Arquivos de Cache do Python
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+# ========================
+# Pastas de Ambiente Virtual
+# ========================
+venv/
+env/
+.venv/
+
+
+# ========================
+# Arquivos de Configuração de Editores
+# ========================
+.vscode/
+.idea/
+
+
+# ========================
+# Arquivos de Sistema Operacional
+# ========================
+.DS_Store
+Thumbs.db
+
+# Arquivo de configuração de pasta do Windows
+desktop.ini 
