@@ -14,7 +14,6 @@ from pmr import pmr
 from pmrEucl import pmrEucl
 from pmrManh import pmrManh
 
-
 def scriptLACDF3Distances(diretorio_org):
     '''
     Extração de atributos DF LAC
@@ -42,37 +41,6 @@ def scriptLACDF3Distances(diretorio_org):
     imagens =  glob.glob(padrao_de_busca) # caminhos pras imagens
 
     lista_de_resultados = []
-    resultado_parc = { # armazena resultados de cada imagem
-         'Indice': None,
-         'Nome do arquivo': None,
-
-         'MinkLAC': None,
-         'MinkAreaLAC': None,
-         'MinkSkewnessLAC': None,
-         'MinkAreaRatioLAC': None,
-         'MinkMaxLAC': None,
-         'MinkMaxLACIndex': None,
-         'Minknn': None,
-         'MinkDF': None,
-
-         'EuclLAC': None,
-         'EuclAreaLAC': None,
-         'EuclSkewnessLAC': None,
-         'EuclAreaRatioLAC': None,
-         'EuclMaxLAC': None,
-         'EuclMaxLACIndex': None,
-         'Euclnn': None,
-         'EuclDF': None,
-
-         'ManhLAC': None,
-         'ManhAreaLAC': None,
-         'ManhSkewnessLAC': None,
-         'ManhAreaRatioLAC': None,
-         'ManhMaxLAC': None,
-         'ManhMaxLACIndex': None,
-         'Manhnn': None,
-         'ManhDF': None
-    }
 
     nome_da_classe = os.path.basename(diretorio_org)
     print('Coletando características Fractais das Imagens - ', nome_da_classe )
@@ -80,6 +48,9 @@ def scriptLACDF3Distances(diretorio_org):
     tic = time.time()
 
     for n, caminho in enumerate(imagens):
+
+        resultado_parc = {}
+
         resultado_parc['Indice'] = n
         resultado_parc['Nome do arquivo'] = os.path.basename(caminho)
         fullname = caminho
@@ -146,7 +117,7 @@ def scriptLACDF3Distances(diretorio_org):
         modelo.fit(X,y)
         resultado_parc['ManhDF'] = modelo.coef_[0]
 
-        lista_de_resultados.append(r)    
+        lista_de_resultados.append(resultado_parc)    
 
     toc = time.time()
     tempo_gasto = toc - tic
