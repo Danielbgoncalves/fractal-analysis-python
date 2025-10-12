@@ -105,7 +105,23 @@ def clustperc(img, maxr):
     AreaRatioMaxCluster = np.trapz(h[half:])/np.trapz(h[:half])
 
 
-    return ( MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluster, 
-            MaxMaxCluster, SkewnessMaxCluster, AreaMaxCluster, AreaRatioCluster, AreaRatioPerc, 
-            MaxCluster, MaxPerc, SkewnessCluster, SkewnessPerc, AreaPerc, AreaCluster, p, g, h) 
-
+    return {
+        'Manh-MaxClusterIndex': MaxClusterIndex,
+        'Manh-MaxPercIndex': MaxPercIndex,
+        'Manh-MaxMaxClusterIndex': MaxMaxClusterIndex,
+        'Manh-AreaRatioMaxCluster': AreaRatioMaxCluster,
+        'Manh-MaxMaxCluster': MaxMaxCluster,
+        'Manh-SkewnessMaxCluster': SkewnessMaxCluster,
+        'Manh-AreaMaxCluster': AreaMaxCluster,
+        'Manh-AreaRatioCluster': AreaRatioCluster,
+        'Manh-AreaRatioPerc': AreaRatioPerc,
+        'Manh-MaxCluster': MaxCluster,
+        'Manh-MaxPerc': MaxPerc,
+        'Manh-SkewnessCluster': SkewnessCluster,
+        'Manh-SkewnessPerc': SkewnessPerc,
+        'Manh-AreaPerc': AreaPerc,
+        'Manh-AreaCluster': AreaCluster,
+        'Manh-p': p,
+        'Manh-g': g,
+        'Manh-h': h
+    }

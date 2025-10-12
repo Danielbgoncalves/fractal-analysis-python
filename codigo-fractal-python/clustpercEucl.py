@@ -104,8 +104,23 @@ def clustperc(img, maxr):
     AreaRatioPerc = np.trapz(g[half:])/np.trapz(g[:half])
     AreaRatioMaxCluster = np.trapz(h[half:])/np.trapz(h[:half])
 
-
-    return ( MaxClusterIndex, MaxPercIndex, MaxMaxClusterIndex, AreaRatioMaxCluster, 
-            MaxMaxCluster, SkewnessMaxCluster, AreaMaxCluster, AreaRatioCluster, AreaRatioPerc, 
-            MaxCluster, MaxPerc, SkewnessCluster, SkewnessPerc, AreaPerc, AreaCluster, p, g, h) 
-
+    return {
+        'Eucl-MaxClusterIndex': MaxClusterIndex,
+        'Eucl-MaxPercIndex': MaxPercIndex,
+        'Eucl-MaxMaxClusterIndex': MaxMaxClusterIndex,
+        'Eucl-AreaRatioMaxCluster': AreaRatioMaxCluster,
+        'Eucl-MaxMaxCluster': MaxMaxCluster,
+        'Eucl-SkewnessMaxCluster': SkewnessMaxCluster,
+        'Eucl-AreaMaxCluster': AreaMaxCluster,
+        'Eucl-AreaRatioCluster': AreaRatioCluster,
+        'Eucl-AreaRatioPerc': AreaRatioPerc,
+        'Eucl-MaxCluster': MaxCluster,
+        'Eucl-MaxPerc': MaxPerc,
+        'Eucl-SkewnessCluster': SkewnessCluster,
+        'Eucl-SkewnessPerc': SkewnessPerc,
+        'Eucl-AreaPerc': AreaPerc,
+        'Eucl-AreaCluster': AreaCluster,
+        'Eucl-p': p,
+        'Eucl-g': g,
+        'Eucl-h': h
+    }
