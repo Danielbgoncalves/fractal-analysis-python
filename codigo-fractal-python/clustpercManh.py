@@ -1,6 +1,6 @@
 import numpy as np
 from joblib import Parallel, delayed
-from scipy.ndimages import label
+from scipy.ndimage import label
 from scipy.stats import skew
 
 
@@ -71,7 +71,7 @@ def analisar_um_raio(k, r_k, img_aux):
     return k, p_k, g_k, h_k
 
 
-def clustperc(img, maxr):
+def clustpercManh(img, maxr):
     aux = img.astype(np.float64)
     r = list(range(3, maxr + 1, 2)) # [3,5,7,...maxr]
 

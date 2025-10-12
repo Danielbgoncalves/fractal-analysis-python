@@ -1,10 +1,10 @@
 import numpy as np
 from joblib import Parallel, delayed
-from scipy.ndimages import label
+from scipy.ndimage import label
 from scipy.stats import skew
 
 
-def analisar_um_raio(p, g, h, k, r_k, img_aux):
+def analisar_um_raio(k, r_k, img_aux):
     '''
     Essa função a análise de cluster/percolação para um único raio ed caixa r_k
     '''
@@ -51,7 +51,7 @@ def analisar_um_raio(p, g, h, k, r_k, img_aux):
             labeled, num_features = label(box, structure=structure)
 
             labels_pos = labeled[labeled > 0]
-            if labels_pos > 0:
+            if labels_pos.size > 0:
                 _, counts = np.unique(labels_pos, return_counts=True)
                 tamanho_maior_cluster = np.max(counts)
             else:
