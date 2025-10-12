@@ -15,8 +15,8 @@ def pmrEucl(img, maxr):
         ncaixas = (img.shape[0] - rk + 1) * (img.shape[1] - rk + 1)
         lim = (rk / 2) - 0.5
 
-        for x in range(int(lim) + 1, img.shape[0] - int(lim)):
-            for y in range(int(lim) + 1, img.shape[1] - int(lim)):
+        for x in range(int(lim), img.shape[0] - int(lim)):
+            for y in range(int(lim), img.shape[1] - int(lim)):
                 m = 0
                 xi = int( x - lim )
                 xf = int( x + lim )

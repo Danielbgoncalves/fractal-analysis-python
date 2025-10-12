@@ -21,8 +21,8 @@ def pmr(img, maxr=41):
         lim = (r[k]/2) - 0.5
 
         # percorrer os pixels centrais
-        for x in range(int(lim) + 1, img.shape[0] - int(lim)):
-            for y in range(int(lim) + 1, img.shape[1] - int(lim)):
+        for x in range(int(lim), img.shape[0] - int(lim)):
+            for y in range(int(lim), img.shape[1] - int(lim)):
                 m = 0
                 xi = int( x - lim )
                 xf = int( x + lim )
