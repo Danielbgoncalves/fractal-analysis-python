@@ -15,11 +15,11 @@ from pmrEucl import pmrEucl
 from pmrManh import pmrManh
 
 
-def scriptLACDF3Distances(diretorio_org, destino):
+def scriptLACDF3Distances(diretorio_org):
     '''
     Extração de atributos DF LAC
     com uso das métricas de distância Chessboard, Euclidiana e Manhatan a partir de imagens RGB.
-    Seu resultado é um pandas -> csv ao invés do arquivo .mat usado na versão MATLAB
+    Seu resultado é um dicionário ao invés do arquivo .mat usado na versão MATLAB
 
     ######################
 
@@ -152,8 +152,10 @@ def scriptLACDF3Distances(diretorio_org, destino):
     tempo_gasto = toc - tic
     print(f"\nProcessamento concluído em {tempo_gasto:.2f} segundos.")
 
-    df_DF_LAC = pd.DataFrame(lista_de_resultados)
-    caminho_csv = os.path.join(destino, 'resultados_DF_LAC.csv')
-    df_DF_LAC.to_csv(caminho_csv, index=False)
+    return lista_de_resultados
+
+    # df_DF_LAC = pd.DataFrame(lista_de_resultados)
+    # caminho_csv = os.path.join(destino, 'resultados_DF_LAC.csv')
+    # df_DF_LAC.to_csv(caminho_csv, index=False)
     
     
