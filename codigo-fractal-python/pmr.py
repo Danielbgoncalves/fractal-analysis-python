@@ -12,12 +12,12 @@ def pmr(img, maxr=41):
     '''
 
     aux = img.astype(np.float64)
-    r = range(3, maxr + 1, 2) # [3, 5, 7, ... maxr]
-    p = np.zeros((r[-1]**2, len(r)), dtype=np.float64)
+    r = list(range(3, maxr+1, 2)) # [3, 5, 7, ... maxr]
+    p = np.zeros((r[-1]**2 + 1, len(r)), dtype=np.float64)
 
     # para cada tamanho de caixa
     for k in range(len(r)):
-        ncaixas = (img.shape[0] - r[k]+1) * (img.shape[1] - r[k]+1)
+        ncaixas = float((img.shape[0] - r[k]+1) * (img.shape[1] - r[k]+1))
         lim = (r[k]/2) - 0.5
 
         # percorrer os pixels centrais
@@ -34,14 +34,15 @@ def pmr(img, maxr=41):
                     for j in range(yi, yf + 1):
                         dist = abs(aux[i,j,0] - aux[x,y,0])
                         if dist <= r[k]:
-                            dist = abs(aux[i,j,0] - aux[x,y,1])
+                            dist = abs(aux[i,j,1] - aux[x,y,1])
                             if dist <= r[k]:
-                                dist = abs(aux[i,j,0] - aux[x,y,2])
+                                dist = abs(aux[i,j,2] - aux[x,y,2])
                                 if dist <= r[k]:
                                     m += 1
                 p[m,k] += 1
-        p[:,k] = p[:,k]/ncaixas
-    return p
+        p[:,k] = p[:,k] / ncaixas
+
+    return p[1:, :]  # descarta a primeira linha (que era só o índice 0)
 
 
 
