@@ -42,7 +42,7 @@ def pmr(img, maxr=41):
                 p[m,k] += 1
         p[:,k] = p[:,k] / ncaixas
 
-    return p[1:, :]  # descarta a primeira linha (que era só o índice 0)
+    return p[1:, :]  
 
 
 

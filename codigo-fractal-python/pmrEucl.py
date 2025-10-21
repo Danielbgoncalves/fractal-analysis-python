@@ -35,4 +35,4 @@ def pmrEucl(img, maxr):
                 p[m-1,k] += 1
         p[:, k] = p[:, k] / ncaixas
 
-    return p
+    return p[1:, :]

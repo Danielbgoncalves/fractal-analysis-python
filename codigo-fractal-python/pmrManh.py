@@ -35,4 +35,4 @@ def pmrManh(img, maxr):
                 p[m, k] += 1
         p[:, k] /= ncaixas
 
-    return p
+    return p[1:, :]
