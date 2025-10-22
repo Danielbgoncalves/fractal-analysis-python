@@ -32,7 +32,7 @@ def pmrManh(img, maxr):
                         
                         if dist <= rk:
                             m += 1
-                p[m, k] += 1
+                p[m-1, k] += 1
         p[:, k] /= ncaixas
 
-    return p[1:, :]
+    return p
