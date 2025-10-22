@@ -16,7 +16,7 @@ def lacunaridade(p):
 
     maxR, _ = p.shape
 
-    j = range(1,maxR+1).reshape(-1,1)
+    j = np.arange(1, maxR+1).reshape(-1,1)
 
     m1 = np.sum(j * p, axis=0)
     m2 = np.sum((j ** 2) * p, axis=0)
