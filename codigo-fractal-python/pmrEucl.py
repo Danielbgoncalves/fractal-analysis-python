@@ -26,9 +26,9 @@ def pmrEucl(img, maxr):
                 for i in range(xi, xf + 1):
                     for j in range(yi, yf + 1):
                         dist = np.sqrt(
-                            (aux[i, j, 0] - aux[x, y, 0]**2) + 
-                            (aux[i, j, 1] - aux[x, y, 1]**2) + 
-                            (aux[i, j, 2] - aux[x, y, 2]**2) 
+                            (aux[i, j, 0] - aux[x, y, 0])**2 + 
+                            (aux[i, j, 1] - aux[x, y, 1])**2 + 
+                            (aux[i, j, 2] - aux[x, y, 2])**2 
                         )
                         if dist <= rk:
                             m += 1
