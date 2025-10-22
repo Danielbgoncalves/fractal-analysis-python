@@ -20,7 +20,7 @@ def N(matriz):
     # Tradução numpy
     maxR, _ = matriz.shape
 
-    divisores = np.array(range(1,maxR)).reshape(-1,1) # [1,2,3..] vira coluna 
+    divisores = np.array(range(1,maxR+1)).reshape(-1,1) # [1,2,3..] vira coluna 
     NL = matriz / divisores
     NLf = np.sum(NL, axis=0)
     
