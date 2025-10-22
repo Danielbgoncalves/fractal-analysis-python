@@ -38,7 +38,6 @@ def scriptPercLACDF3Distances(diretorio_org):
         Minsk_perc = clustperc(PIC, maxr)
         Eucl_perc = clustpercEucl(PIC, maxr)
         Manh_perc = clustpercManh(PIC, maxr)
-        print('O tamaho das lisats de dicionários dos perc são:', len(Minsk_perc), len(Eucl_perc), len(Manh_perc))
 
         resultado_parc = {**Minsk_perc, **Eucl_perc, **Manh_perc}
 
