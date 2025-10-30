@@ -29,10 +29,11 @@ def pmrManh(img, maxr):
                         dist = abs(aux[i, j, 0] - aux[x, y, 0]) + \
                                abs(aux[i, j, 1] - aux[x, y, 1]) + \
                                abs(aux[i, j, 2] - aux[x, y, 2])
-                        
                         if dist <= rk:
                             m += 1
+
                 p[m-1, k] += 1
+
         p[:, k] /= ncaixas
 
     return p

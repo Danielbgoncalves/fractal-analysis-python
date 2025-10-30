@@ -1,6 +1,6 @@
 # Validação do programa python com base no original MATLAB
 usei a imagem de uma folha para os testes, ela esta aqui em baixo:
-`folha`: ![zoom em uma folha](imagens_usadas/pequena.png)
+`folha`: ![zoom em uma folha](codigo-fractal-python/imagens_entrada/folha.png)
 ## Funções pmr
 usando maxr = 3
 ### Comparação — pmr.py vs pmr.m

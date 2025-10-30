@@ -12,7 +12,7 @@ def pmr(img, maxr=41):
     '''
 
     aux = img.astype(np.float64)
-    r = list(range(3, maxr+1, 2)) # [3, 5, 7, ... maxr]
+    r = list(range(3, maxr+1, 2)) #[3, 5, 7, ... maxr]
     p = np.zeros((r[-1]**2 + 1, len(r)), dtype=np.float64)
 
     # para cada tamanho de caixa
@@ -43,6 +43,3 @@ def pmr(img, maxr=41):
         p[:,k] = p[:,k] / ncaixas
 
     return p[1:, :]  
-
-
-

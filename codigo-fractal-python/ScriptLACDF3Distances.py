@@ -54,7 +54,7 @@ def scriptLACDF3Distances(diretorio_org):
         PIC = np.array(img_pil)
 
 
-        print(f"'Calculando características fractais - Minkowski({n} / {len(imagens)})")
+        print(f"Calculando características fractais - Minkowski({n} / {len(imagens)})")
         MatrizProb = pmr(PIC, maxr)
         MinkLAC = lacunaridade(MatrizProb)
         resultado_parc['MinkLAC'] = MinkLAC
