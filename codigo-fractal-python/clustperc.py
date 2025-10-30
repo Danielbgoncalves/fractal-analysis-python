@@ -13,20 +13,23 @@ def analisar_um_raio(k, r_k, img_aux):
     if ncaixas <= 0: 
         return k, 0.0, 0.0, 0.0
 
-    vetBigClusteres = np.zeros(ncaixas, dtype=np.float64) # armazena a ocupação do maior custer na caixa de tamanho k
-    ptemp, gtemp = 0, 0
+    vetBigClusteres = np.zeros(ncaixas, dtype=np.float64) # armazena, para cada janela, a fração ocupada pelo maior cluster
+    ptemp, gtemp = 0, 0 # soma do número de clusters de todas as janelas, quantas janelas satisfazem o crtério de percolação 
     lim = (r_k / 2) - 0.5
 
-    #percorrer os pixels centrais
+    # percorrer os pixels centrais dessas caixas
     caixa_idx = 0
     for x in range(int(lim), int(img_aux.shape[0] - lim)):
         for y in range(int(lim), int(img_aux.shape[1] - lim)):
+
+            # os limites que delimitam a janela de centro x, y
             xi = int( x - lim )
             xf = int( x + lim )
             yi = int( y - lim )
             yf = int( y + lim )
             percCount = 0
 
+            # essa caixa é a janela de centro x, y
             box = np.zeros((xf - xi + 1, yf - yi + 1))
             a = -1
             for i in range(xi, xf + 1):
@@ -34,19 +37,19 @@ def analisar_um_raio(k, r_k, img_aux):
                 b = -1
                 for j in range(yi, yf + 1):
                     b += 1
-                    if(
+                    if( # Se o pixel i,j for muito parecido com o central box[i,j] recebe valor 1
                         abs(img_aux[i, j, 0] - img_aux[x, y, 0]) <= r_k and
                         abs(img_aux[i, j, 1] - img_aux[x, y, 1]) <= r_k and
                         abs(img_aux[i, j, 2] - img_aux[x, y, 2]) <= r_k
                     ):
                         box[a,b] = 1
-                        percCount += 1
+                        percCount += 1 # nmr de pixels que deiferem do central por <= r_k
                     else:
-                        box[a, b] = 0
+                        box[a,b] = 0
 
             structure = np.array([[0, 1, 0],
-                                [1, 1, 1],
-                                [0, 1, 0]], dtype=np.int8)
+                                  [1, 1, 1],
+                                  [0, 1, 0]], dtype=np.int8)
             
             labeled, num_features = label(box, structure=structure)
 
@@ -59,13 +62,15 @@ def analisar_um_raio(k, r_k, img_aux):
 
             vetBigClusteres[caixa_idx] = tamanho_maior_cluster/(r_k ** 2)
             ptemp += num_features
+
             if (percCount / r_k ** 2) >= 0.59275:
                 gtemp += 1
+
             caixa_idx += 1
 
     p_k = ptemp / ncaixas
     g_k = gtemp / ncaixas
-    h_k = np.mean (vetBigClusteres)
+    h_k = np.mean(vetBigClusteres)
 
     return k, p_k, g_k, h_k
 
@@ -75,8 +80,8 @@ def clustperc(img, maxr):
     r = list(range(3, maxr + 1, 2)) # [3,5,7,...maxr]
 
     g = np.zeros(len(r))   # valores de percolação para cada tamanho de r
-    p = np.zeros(len(r))   # valores de de n aglomerados para cada tamanho de r
-    h = np.zeros(len(r))   # valores do maior aglomerado para cada tamanho de r
+    p = np.zeros(len(r))   # nmr médio de clusters para cada tamanho de r
+    h = np.zeros(len(r))   # tamanho médio do maior cluster para cada tamanho de r
 
     # para cada tamanho caixa *executar em paralelo*
     results = Parallel(n_jobs=-1)(
