@@ -2,7 +2,8 @@ import numpy as np
 
 def lacunaridade(p):
     '''
-    Calcula a lacunaridade de uma matriz p
+    Calcula a lacunaridade de uma matriz p 
+    por escala, ou seja, para cada r coluna de p 
     '''
     # lac = np.zeros(p.shape[1])
 
@@ -21,6 +22,6 @@ def lacunaridade(p):
     m1 = np.sum(j * p, axis=0)
     m2 = np.sum((j ** 2) * p, axis=0)
 
-    lac = (m2 - (m1 ** 2)) / (m1 ** 2)
+    lac = (m2 - (m1 ** 2)) / (m1 ** 2) 
 
     return lac

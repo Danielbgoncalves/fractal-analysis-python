@@ -4,7 +4,7 @@ def N(matriz):
     '''
     Recebe uma matriz de probabilidade em que cada coluna j representa um raio r
     e cada linha i representa a quantidade de pixels similares ao central da caixa. 
-    Retorna um vetor com a média,  o inverso da massa dde pixels.
+    Retorna um vetor com a média, o inverso da massa de pixels.
     '''
     
     # Tradução direta

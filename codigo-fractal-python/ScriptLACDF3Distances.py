@@ -26,7 +26,7 @@ def scriptLACDF3Distances(diretorio_org):
     Outubro de 2025
 
     ######################
-    Essa é uma tradução direta, feratoração com loop evitaria repetição desnecessária e deixaria mais limpo
+    Essa é uma tradução direta, veratoração com loop evitaria repetição desnecessária e deixaria mais limpo
     '''
 
     # valor máximo de L

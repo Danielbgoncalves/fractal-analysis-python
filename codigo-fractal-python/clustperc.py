@@ -43,7 +43,7 @@ def analisar_um_raio(k, r_k, img_aux):
                         abs(img_aux[i, j, 2] - img_aux[x, y, 2]) <= r_k
                     ):
                         box[a,b] = 1
-                        percCount += 1 # nmr de pixels que deiferem do central por <= r_k
+                        percCount += 1 # nmr de pixels que diferem do central por <= r_k
                     else:
                         box[a,b] = 0
 
