@@ -8,52 +8,55 @@ def reorganizar_e_expandir_df(df):
         'Minkp', 'Minkg', 'Minkh', 'MinkLAC', 'Minknn', 
         'Euclp', 'Euclg', 'Euclh', 'EuclLAC', 'Euclnn', 
         'Manhp', 'Manhg', 'Manhh', 'ManhLAC', 'Manhnn', 
+
         'MinkAreaCluster', 'MinkSkewnessCluster', 'MinkAreaRatioCluster', 'MinkMaxCluster', 'MinkMaxClusterIndex',
         'MinkAreaPerc', 'MinkSkewnessPerc', 'MinkAreaRatioPerc', 'MinkMaxPerc', 'MinkMaxPercIndex', 
         'MinkAreaMaxCluster', 'MinkSkewnessMaxCluster', 'MinkAreaRatioMaxCluster', 'MinkMaxMaxCluster', 'MinkMaxMaxClusterIndex', 
+
         'EuclAreaCluster', 'EuclSkewnessCluster', 'EuclAreaRatioCluster', 'EuclMaxCluster', 'EuclMaxClusterIndex',
         'EuclAreaPerc', 'EuclSkewnessPerc', 'EuclAreaRatioPerc', 'EuclMaxPerc', 'EuclMaxPercIndex', 
         'EuclAreaMaxCluster', 'EuclSkewnessMaxCluster', 'EuclAreaRatioMaxCluster', 'EuclMaxMaxCluster', 'EuclMaxMaxClusterIndex',
+
         'ManhAreaCluster', 'ManhSkewnessCluster', 'ManhAreaRatioCluster', 'ManhMaxCluster', 'ManhMaxClusterIndex',
         'ManhAreaPerc', 'ManhSkewnessPerc', 'ManhAreaRatioPerc', 'ManhMaxPerc', 'ManhMaxPercIndex', 
-        'ManhAreaMaxCluster', 'ManhSkewnessMaxCluster', 'ManhAreaRatioMaxCluster', 'ManhMaxMaxCluster', 'ManhMaxMaxClusterIndex'
+        'ManhAreaMaxCluster', 'ManhSkewnessMaxCluster', 'ManhAreaRatioMaxCluster', 'ManhMaxMaxCluster', 'ManhMaxMaxClusterIndex',
+
+        'MinkAreaLAC', 'MinkSkewnessLAC', 'MinkAreaRatioLAC', 'MinkMaxLAC', 'MinkMaxLACIndex',
+        'EuclAreaLAC', 'EuclSkewnessLAC', 'EuclAreaRatioLAC', 'EuclMaxLAC', 'EuclMaxLACIndex', 
+        'ManhAreaLAC', 'ManhSkewnessLAC', 'ManhAreaRatioLAC', 'ManhMaxLAC', 'ManhMaxLACIndex',
+
+        'MinkDF', 'EuclDF', 'ManhDF'
     ]
     
-    # Identificar colunas que terminam com 'p', 'g', 'h', 'LAC', 'nn' (vetores a expandir)
-    sufixos_vetores = ['p', 'g', 'h', 'LAC', 'nn']
+    # Identificar colunas que terminam com 'p', 'g', 'h', 'LACs', 'nn' (vetores a expandir)
+    sufixos_vetores = ['p', 'g', 'h', 'MinkLAC', 'EuclLAC', 'ManhLAC', 'nn']
     colunas_vetores = [col for col in nova_ordem if any(col.endswith(suf) for suf in sufixos_vetores)]
     
-    # Lista para armazenar os nomes das colunas na ordem final
     ordem_final = []
-    
-    # Dicionário para armazenar os dados
     dados_expandidos = {}
     
-    # Processar cada coluna na ordem definida
     for col in nova_ordem:
         if col in colunas_vetores and col in df.columns:
-            # Expandir array em múltiplas colunas NA POSIÇÃO ATUAL
+
             primeiro_array = df[col].iloc[0]
             if isinstance(primeiro_array, (np.ndarray, list)):
                 n_elementos = len(primeiro_array)
             else:
                 n_elementos = 20  # valor padrão
             
-            # Criar colunas individuais para cada elemento do array
             for i in range(n_elementos):
                 nome_nova_col = f"{col}{i+1}"
                 ordem_final.append(nome_nova_col)
-                # Extrair o elemento i de cada array
+
                 dados_expandidos[nome_nova_col] = [
                     arr[i] if isinstance(arr, (np.ndarray, list)) and len(arr) > i else np.nan 
                     for arr in df[col]
                 ]
         elif col in df.columns:
-            # Manter coluna como está
+
             ordem_final.append(col)
             dados_expandidos[col] = df[col].values
     
-    # Criar novo DataFrame com as colunas na ordem correta
     df_novo = pd.DataFrame(dados_expandidos)
     df_novo = df_novo[ordem_final]
     
@@ -65,21 +68,30 @@ def reorganizar_e_expandir_csv2(df):
     # Nova ordem das colunas
     nova_ordem = [
         'Minkp', 'Minkg', 'Minkh', 'MinkLAC', 'Minknn', 
-        'Euclp', 'Euclg', 'Euclh', 'EuclLac', 'Euclnn', 
+        'Euclp', 'Euclg', 'Euclh', 'EuclLAC', 'Euclnn', 
         'Manhp', 'Manhg', 'Manhh', 'ManhLAC', 'Manhnn', 
+
         'MinkAreaCluster', 'MinkSkewnessCluster', 'MinkAreaRatioCluster', 'MinkMaxCluster', 'MinkMaxClusterIndex',
         'MinkAreaPerc', 'MinkSkewnessPerc', 'MinkAreaRatioPerc', 'MinkMaxPerc', 'MinkMaxPercIndex', 
         'MinkAreaMaxCluster', 'MinkSkewnessMaxCluster', 'MinkAreaRatioMaxCluster', 'MinkMaxMaxCluster', 'MinkMaxMaxClusterIndex', 
+        
         'EuclAreaCluster', 'EuclSkewnessCluster', 'EuclAreaRatioCluster', 'EuclMaxCluster', 'EuclMaxClusterIndex',
         'EuclAreaPerc', 'EuclSkewnessPerc', 'EuclAreaRatioPerc', 'EuclMaxPerc', 'EuclMaxPercIndex', 
         'EuclAreaMaxCluster', 'EuclSkewnessMaxCluster', 'EuclAreaRatioMaxCluster', 'EuclMaxMaxCluster', 'EuclMaxMaxClusterIndex',
+        
         'ManhAreaCluster', 'ManhSkewnessCluster', 'ManhAreaRatioCluster', 'ManhMaxCluster', 'ManhMaxClusterIndex',
         'ManhAreaPerc', 'ManhSkewnessPerc', 'ManhAreaRatioPerc', 'ManhMaxPerc', 'ManhMaxPercIndex', 
         'ManhAreaMaxCluster', 'ManhSkewnessMaxCluster', 'ManhAreaRatioMaxCluster', 'ManhMaxMaxCluster', 'ManhMaxMaxClusterIndex'
+
+        'MinkAreaLAC', 'MinkSkewnessLAC', 'MinkAreaRatioLAC', 'MinkMaxLAC', 'MinkMaxLACIndex',
+        'EuclAreaLAC', 'EuclSkewnessLAC', 'EuclAreaRatioLAC', 'EuclMaxLAC', 'EuclMaxLACIndex', 
+        'ManhAreaLAC', 'ManhSkewnessLAC', 'ManhAreaRatioLAC', 'ManhMaxLAC', 'ManhMaxLACIndex',
+
+        'MinkDF', 'EuclDF', 'ManhDF'
     ]
     
     # Identificar colunas que terminam com 'p', 'g' ou 'h' (vetores a expandir)
-    sufixos_vetores = ['p', 'g', 'h']
+    sufixos_vetores = ['p', 'g', 'h', 'MinkLAC', 'EuclLAC', 'ManhLAC', 'nn']
     
     # Função para converter string de array para numpy array
     def parse_array(val):
