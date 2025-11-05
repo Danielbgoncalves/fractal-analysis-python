@@ -109,22 +109,22 @@ def clustperc(img, maxr):
     AreaRatioMaxCluster = np.trapz(h[half:])/np.trapz(h[:half])
 
     return {
-        'Minks-MaxClusterIndex': MaxClusterIndex,
-        'Minks-MaxPercIndex': MaxPercIndex,
-        'Minks-MaxMaxClusterIndex': MaxMaxClusterIndex,
-        'Minks-AreaRatioMaxCluster': AreaRatioMaxCluster,
-        'Minks-MaxMaxCluster': MaxMaxCluster,
-        'Minks-SkewnessMaxCluster': SkewnessMaxCluster,
-        'Minks-AreaMaxCluster': AreaMaxCluster,
-        'Minks-AreaRatioCluster': AreaRatioCluster,
-        'Minks-AreaRatioPerc': AreaRatioPerc,
-        'Minks-MaxCluster': MaxCluster,
-        'Minks-MaxPerc': MaxPerc,
-        'Minks-SkewnessCluster': SkewnessCluster,
-        'Minks-SkewnessPerc': SkewnessPerc,
-        'Minks-AreaPerc': AreaPerc,
-        'Minks-AreaCluster': AreaCluster,
-        'Minks-p': p,
-        'Minks-g': g,
-        'Minks-h': h
+        'MinkMaxClusterIndex': MaxClusterIndex,
+        'MinkMaxPercIndex': MaxPercIndex,
+        'MinkMaxMaxClusterIndex': MaxMaxClusterIndex,
+        'MinkAreaRatioMaxCluster': AreaRatioMaxCluster,
+        'MinkMaxMaxCluster': MaxMaxCluster,
+        'MinkSkewnessMaxCluster': SkewnessMaxCluster,
+        'MinkAreaMaxCluster': AreaMaxCluster,
+        'MinkAreaRatioCluster': AreaRatioCluster,
+        'MinkAreaRatioPerc': AreaRatioPerc,
+        'MinkMaxCluster': MaxCluster,
+        'MinkMaxPerc': MaxPerc,
+        'MinkSkewnessCluster': SkewnessCluster, #
+        'MinkSkewnessPerc': SkewnessPerc,
+        'MinkAreaPerc': AreaPerc,
+        'MinkAreaCluster': AreaCluster, #
+        'Minkp': p, #
+        'Minkg': g, #
+        'Minkh': h #
     }
