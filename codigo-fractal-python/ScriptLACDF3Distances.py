@@ -38,16 +38,13 @@ def scriptLACDF3Distances(diretorio_org):
     lista_de_resultados = []
 
     nome_da_classe = os.path.basename(diretorio_org)
-    print('Coletando LAC e DF das Imagens - ', nome_da_classe )
+    print('Coletando LAC e DF das imagens da pasta - ', nome_da_classe )
 
-    tic = time.time()
 
     for n, caminho in enumerate(imagens):
-
+        n += 1
         resultado_parc = {}
 
-        resultado_parc['Indice'] = n
-        resultado_parc['Nome do arquivo'] = os.path.basename(caminho)
         fullname = caminho
         img_pil = Image.open(caminho)
         img_pil = img_pil.resize((224, 224), Image.BILINEAR)
@@ -74,7 +71,7 @@ def scriptLACDF3Distances(diretorio_org):
         modelo.fit(X,y)
         resultado_parc['MinkDF'] = modelo.coef_[0]
 
-        print(f"'Calculando características fractais - Euclidian({n} / {len(imagens)})")
+        print(f"Calculando características fractais - Euclidian({n} / {len(imagens)})")
         MatrizProb = pmrEucl(PIC, maxr)
         EuclLAC = lacunaridade(MatrizProb)
         resultado_parc['EuclLac'] = EuclLAC
@@ -94,7 +91,7 @@ def scriptLACDF3Distances(diretorio_org):
         modelo.fit(X,y)
         resultado_parc['EuclDF'] = modelo.coef_[0]
 
-        print(f"'Calculando características fractais - Manhattan({n} / {len(imagens)})")
+        print(f"Calculando características fractais - Manhattan({n} / {len(imagens)})")
         MatrizProb = pmrManh(PIC, maxr)
         ManhLAC = lacunaridade(MatrizProb)
         resultado_parc['ManhLAC'] = ManhLAC
@@ -115,11 +112,6 @@ def scriptLACDF3Distances(diretorio_org):
         resultado_parc['ManhDF'] = modelo.coef_[0]
 
         lista_de_resultados.append(resultado_parc)    
-
-
-    toc = time.time()
-    tempo_gasto = toc - tic
-    print(f"\nProcessamento concluído em {tempo_gasto:.2f} segundos.")
 
     return lista_de_resultados
 

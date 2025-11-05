@@ -27,7 +27,6 @@ def scriptPercLACDF3Distances(diretorio_org):
     nome_da_classe = os.path.basename(diretorio_org)
     print('Coletando características Fractais das Imagens - ', nome_da_classe )
 
-    tic = time.time()
 
     for caminho in imagens:
       
@@ -40,12 +39,7 @@ def scriptPercLACDF3Distances(diretorio_org):
         Manh_perc = clustpercManh(PIC, maxr)
 
         resultado_parc = {**Minsk_perc, **Eucl_perc, **Manh_perc}
-
         lista_de_resultados.append(resultado_parc)
-    
-    toc = time.time()
-    tempo_gasto = toc - tic
-    print(f"\nProcessamento concluído em {tempo_gasto:.2f} segundos.")
-    
+        
     return lista_de_resultados
 
