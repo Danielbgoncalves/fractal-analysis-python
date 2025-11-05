@@ -24,4 +24,4 @@ def lacunaridade(p):
 
     lac = (m2 - (m1 ** 2)) / (m1 ** 2) 
 
-    return lac
+    return lac.tolist()

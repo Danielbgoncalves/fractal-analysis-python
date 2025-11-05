@@ -24,4 +24,4 @@ def N(matriz):
     NL = matriz / divisores
     NLf = np.sum(NL, axis=0)
     
-    return NLf
+    return NLf.tolist()
