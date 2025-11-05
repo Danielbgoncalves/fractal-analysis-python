@@ -74,7 +74,7 @@ def scriptLACDF3Distances(diretorio_org):
         print(f"Calculando características fractais - Euclidian({n} / {len(imagens)})")
         MatrizProb = pmrEucl(PIC, maxr)
         EuclLAC = lacunaridade(MatrizProb)
-        resultado_parc['EuclLac'] = EuclLAC
+        resultado_parc['EuclLAC'] = EuclLAC
         r = list(range(3, maxr+1, 2))
         resultado_parc['EuclAreaLAC'] = np.trapz(EuclLAC)
         resultado_parc['EuclSkewnessLAC'] = skew(EuclLAC)
