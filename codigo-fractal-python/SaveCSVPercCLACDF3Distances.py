@@ -35,17 +35,15 @@ def saveCSVPercCLACDF3Distances(origem, destino, All_FEATURES=True):
     for col in df.columns:
         df[col] = df[col].apply(lambda x: x.tolist() if isinstance(x, np.ndarray) else x)
 
-    # df = gerar_df_exemplo()
-
     df = reorganizar_e_expandir_df(df)
-    # print(df)
 
-    caminho_csv_final = os.path.join(destino, 'resultado_ordenado_3.csv')
+    os.makedirs(destino, exist_ok=True)
+    caminho_csv_final = os.path.join(destino, 'resultado_ordenado_4.csv')
+    caminho_csv_final_v = os.path.join(destino, 'resultado_ordenado_4_v.csv')
+
     df.to_csv(caminho_csv_final, index=False, sep=';', decimal=',')  
+    df.to_csv(caminho_csv_final_v, index=False, sep=',', decimal='.')  
 
-    # os.makedirs(destino, exist_ok=True)  
-    # caminho_csv_final = os.path.join(destino, 'resultados_completos2.csv')
-    # df.to_csv(caminho_csv_final, index=False, sep=',')
     toc = time.time()
     tempo_gasto = toc - tic
     print(f"Salvo em {caminho_csv_final}")
