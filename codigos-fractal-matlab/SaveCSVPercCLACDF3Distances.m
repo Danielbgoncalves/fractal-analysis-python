@@ -8,7 +8,7 @@ Carac1 = dir([diretorioOrigem1 '/*.mat']);
 samples1 = length(Carac1);
 %%%%%%%%%%%%%%%%%%
 %%
-%%Número de amostras da Classe 1
+%%Nï¿½mero de amostras da Classe 1
 class1 = samples1;
 features=zeros(class1,364);
 
@@ -49,7 +49,7 @@ for i = 1:class1
     features(i, 316) = EuclAreaCluster;
     features(i, 317) = EuclSkewnessCluster;
     features(i, 318) = EuclAreaRatioCluster;
-    features(i, 309) = EuclMaxCluster;
+    features(i, 319) = EuclMaxCluster;
     features(i, 320) = EuclMaxClusterIndex;
     features(i, 321) = EuclAreaPerc;
     features(i, 322) = EuclSkewnessPerc;
@@ -98,7 +98,7 @@ for i = 1:class1
 end
 
 %%
-%%Número de amostras da Classe 2
+%%Nï¿½mero de amostras da Classe 2
 % class2 = samples2;
 % 
 % features2=zeros(class2,364);
@@ -188,7 +188,7 @@ end
 % end
 
 %%
-% %%Número de amostras da Classe 3
+% %%Nï¿½mero de amostras da Classe 3
 % class3 = 122;
 % %%%%%%%%%%%%%%%%%%%%%%%%%%
 % diretorioOrigem2='C:\Users\thais\Documents\Doutorado\Bases de imagens\LNHCompleto\MCL';
@@ -280,7 +280,7 @@ end
 % end
 
 %%
-% %%Número de amostras da Classe 4
+% %%Nï¿½mero de amostras da Classe 4
 % class4 = 151;
 % %%%%%%%%%%%%%%%%%%%%%%%%%%
 % diretorioOrigem2='C:\Users\thais\Documents\Doutorado\Bases de imagens\LiverAge\4';
@@ -372,7 +372,7 @@ end
 % end
 
 %%
-%%Cabeçalho do arquivo (pronto para ser convertido para ARFF)
+%%Cabeï¿½alho do arquivo (pronto para ser convertido para ARFF)
 header = cell(368,1);
 header{1, 1} = '@RELATION UCSBPERCLACDF3Dist41GB2';
 for i = 3:22
