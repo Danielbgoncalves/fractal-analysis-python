@@ -1,4 +1,4 @@
-# Validação do programa python com base no original MATLAB
+# Validação do programa python com base no original MATLAB - uma imagem
 usei a imagem de uma folha para os testes, ela esta aqui em baixo:
 `folha`: ![zoom em uma folha](codigo-fractal-python/imagens_entrada/folha.png)
 ## Funções pmr
