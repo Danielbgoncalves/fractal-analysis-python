@@ -38,11 +38,11 @@ def saveCSVPercCLACDF3Distances(origem, destino, All_FEATURES=True):
     df = reorganizar_e_expandir_df(df)
 
     os.makedirs(destino, exist_ok=True)
-    caminho_csv_final = os.path.join(destino, 'resultado_ordenado_4.csv')
-    caminho_csv_final_v = os.path.join(destino, 'resultado_ordenado_4_v.csv')
+    caminho_csv_final = os.path.join(destino, 'resultado_ordenado.csv')
+    caminho_csv_final_v = os.path.join(destino, 'resultado_ordenado_v.csv')
 
     df.to_csv(caminho_csv_final, index=False, sep=';', decimal=',')  
-    df.to_csv(caminho_csv_final_v, index=False, sep=',', decimal='.')  
+    df.to_csv(caminho_csv_final_v, index=False, sep=',')  
 
     toc = time.time()
     tempo_gasto = toc - tic
