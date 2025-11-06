@@ -1,4 +1,4 @@
-# 🔬 Validação: Implementação Python vs. MATLAB
+# Validação: Implementação Python vs. MATLAB
 
 ## Resumo
 
@@ -62,7 +62,7 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 ---
 
-## 🔍 Análise Detalhada
+## Análise Detalhada
 
 ### Distribuição de Erros Relativos
 
@@ -84,7 +84,7 @@ Faixa de Erro        | Descritores | Percentual
 
 ---
 
-## 🛠️ Metodologia de Validação
+## Metodologia de Validação
 
 ### Dados de Entrada
 - **Amostras**: 6 observações
@@ -103,7 +103,7 @@ Colunas sem diferença estatística (p > 0.05): 334/363
 
 ---
 
-## ⚙️ Execução do Script
+## Execução do Script
 
 ### Requisitos
 ```bash
@@ -137,6 +137,3 @@ projeto/
 
 - Equivalência numérica excepcional (erro médio < 0.1%)
 - Alta reprodutibilidade estatística
-
-
-
