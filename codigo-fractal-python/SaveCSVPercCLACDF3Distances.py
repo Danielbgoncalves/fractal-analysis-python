@@ -29,8 +29,6 @@ def saveCSVPercCLACDF3Distances(origem, destino, All_FEATURES=True):
         print('==== Calculando LAC e DF ====')
         resultado = scriptLACDF3Distances(origem) 
 
-    print(resultado)
-
     df = pd.DataFrame(resultado)
     for col in df.columns:
         df[col] = df[col].apply(lambda x: x.tolist() if isinstance(x, np.ndarray) else x)
@@ -38,15 +36,15 @@ def saveCSVPercCLACDF3Distances(origem, destino, All_FEATURES=True):
     df = reorganizar_e_expandir_df(df)
 
     os.makedirs(destino, exist_ok=True)
-    caminho_csv_final = os.path.join(destino, 'resultado_ordenado.csv')
-    caminho_csv_final_v = os.path.join(destino, 'resultado_ordenado_v.csv')
+    caminho_csv_final_v = os.path.join(destino, 'results_numba_20imgs_v.csv')
+    caminho_csv_final = os.path.join(destino, 'results_numba_20imgs.csv')
 
-    df.to_csv(caminho_csv_final, index=False, sep=';', decimal=',')  
-    df.to_csv(caminho_csv_final_v, index=False, sep=',')  
+    df.to_csv(caminho_csv_final_v, index=False, sep=',')
+    df.to_csv(caminho_csv_final, index=False, sep=';', decimal='.')  
 
     toc = time.time()
     tempo_gasto = toc - tic
-    print(f"Salvo em {caminho_csv_final}")
+    print(f"Salvo em {caminho_csv_final_v}")
     print(f"Tempo de execução total {tempo_gasto:.2f} segundos")
 
 if __name__ == "__main__":
