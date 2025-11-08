@@ -1,5 +1,7 @@
 import numpy as np
+from numba import njit
 
+@njit
 def pmrEucl(img, maxr):
     '''
     Calcula a matriz de probabilidades de uma imagem usano distância eclidiana 
@@ -7,7 +9,7 @@ def pmrEucl(img, maxr):
     maxr é o limite superior do rio, deve ser impar.
     '''
     aux = img.astype(np.float64)
-    r = range(3, maxr + 1, 2)
+    r = list(range(3, maxr + 1, 2))
     p = np.zeros((r[-1]**2, len(r)), dtype=np.float64)
 
     for k in range(len(r)):

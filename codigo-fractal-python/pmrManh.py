@@ -1,5 +1,7 @@
 import numpy as np
+from numba import njit
 
+@njit
 def pmrManh(img, maxr):
     '''
     Calcula a matriz de probabilidades de uma imagem usanod distância de mannhattan
