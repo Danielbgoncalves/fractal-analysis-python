@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 
 
 # Ler arquivos
-df_python = pd.read_csv('codigo-fractal-python/resultados/resultado_ordenado_v.csv', sep=',')
+df_python = pd.read_csv('codigo-fractal-python/resultados/results_numba_20imgs_v.csv', sep=',')
 df_python[[c for c in df_python.columns if c.endswith('Index')]] += 1 # Pra ficar igual ao do matlab (indexado pelo 1)
 
-df_matlab = pd.read_csv('codigos-fractal-matlab\saida3\Onlydata-resultado.csv', sep=',', header=None)
-df_matlab = df_matlab.iloc[:, :-1]
+df_matlab = pd.read_csv('codigos-fractal-matlab\saida\Onlydata-resuls_20imgs.csv', sep=',', header=None)
+df_matlab = df_matlab.iloc[:, :-1] # retira a coluna 'classe'
 
 # Eles *precisam* ter mesmo formanto
 assert df_matlab.shape == df_python.shape, "Os CSVs têm tamanhos diferentes!"
@@ -39,7 +39,7 @@ corrs = np.array(corrs)
 p_values = np.array([ttest_rel(M[:, j], P[:, j]).pvalue for j in range(n_cols)])
 sem_diferenca = np.sum(p_values > 0.05)
 
-print("\n===== RESULTADOS GLOBAIS (corrigidos) =====")
+print("\n===== RESULTADOS GLOBAIS =====")
 print(f"Erro Absoluto Médio Global: {np.nanmean(erros_abs):.6f}")
 print(f"Erro Relativo Médio Global: {np.nanmean(erros_rel)*100:.4f}%")
 print(f"RMSE Médio Global: {np.nanmean(rmse):.6f}")
