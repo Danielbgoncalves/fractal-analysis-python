@@ -1,0 +1,77 @@
+'''
+Converte os atributos locais salvos no arquivo CSV com uso do script
+SaveCSVPercLACDF3Distances em uma imagem de atributos fractais com
+uso da técnica recurrence plot
+
+input: 
+    diretório de destino das imagens geradas;
+    actual dir precisa n
+    cvs lido como matriz;
+'''
+import numpy as np
+from create_recorrence_plot import create_recorrence_plot
+import imageio.v3 as iio
+from numba import njit
+
+@njit
+def mat2gray(arr):
+    arr = arr.astype(np.float64)
+    min_val = np.min(arr)
+    max_val = np.max(arr)
+    if max_val == min_val: # dividir por zero costuma dar mal
+        return np.zeros_like(arr)
+    return (arr - min_val) / (max_val - min_val)
+
+@njit
+def processar_features(n, new_features):
+    h = w = 100 # aqui deveria ser len(signal) mas já sabemos q vai ser 100
+    imgs = np.zeros((n, h, w, 3))
+
+    for i in range(n):
+        signal_r = new_features[i, :, 0].reshape(-1, 1)
+        signal_g = new_features[i, :, 1].reshape(-1, 1)
+        signal_b = new_features[i, :, 2].reshape(-1, 1)
+    
+    # confirmar se charam outra função com jit vai dar erro
+
+        r_channel = create_recorrence_plot(signal_r)
+        g_channel = create_recorrence_plot(signal_g)
+        b_channel = create_recorrence_plot(signal_b)
+
+    # confirmar se charam outra função com jit vai dar erro
+
+        imgs[i,:,:,0] = r_channel 
+        imgs[i,:,:,1] = g_channel 
+        imgs[i,:,:,2] = b_channel
+        imgs[i,:,:,:] = np.clip(imgs[i,:,:,:], 0, 1)
+    
+    return imgs
+
+def reshapeRecPlot(destino, features):
+    n = features.shape[0] # quantidade de linhas (imagens a serem geradas)
+    featuresSplit = np.zeros((n, 100, 3))
+
+    featuresSplit[:,:,0] = features[:,   0:100]
+    featuresSplit[:,:,1] = features[:, 100:200]
+    featuresSplit[:,:,2] = features[:, 200:300]
+
+    new_features = np.zeros((n, 100, 3))
+
+    step = 20
+    for i in range(0, 100, step):
+        new_features[:, i:i+step ,:] = mat2gray(featuresSplit[:, i:i+step ,:])
+
+    imgs = processar_features(n, new_features)
+    for n, img in enumerate(imgs):
+        img_uint8 =  (img * 255).astype(np.uint8)
+        iio.imwrite(f'{destino}/F-RecPlot_{n+1}.png', img_uint8)
+
+
+
+
+
+
+
+
+
+
