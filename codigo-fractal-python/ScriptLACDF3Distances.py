@@ -32,8 +32,11 @@ def scriptLACDF3Distances(diretorio_org):
     # valor máximo de L
     maxr = 41
 
-    padrao_de_busca = os.path.join(diretorio_org, '*.png')
-    imagens =  glob.glob(padrao_de_busca) # caminhos pras imagens
+    padrao_png = os.path.join(diretorio_org, '*.png').replace("\\", "/")
+    padrao_tif = os.path.join(diretorio_org, '*.tif').replace("\\", "/")
+
+    imagens = glob.glob(padrao_png) + glob.glob(padrao_tif)
+
 
     lista_de_resultados = []
 
