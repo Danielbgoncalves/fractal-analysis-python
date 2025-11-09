@@ -19,17 +19,20 @@ def scriptPercLACDF3Distances(diretorio_org):
 
     maxr = 41
 
-    padrao_de_busca = os.path.join(diretorio_org, '*.png').replace("\\", "/")
-    imagens =  glob.glob(padrao_de_busca) # caminhos pras imagens
+    padrao_png = os.path.join(diretorio_org, '*.png').replace("\\", "/")
+    padrao_tif = os.path.join(diretorio_org, '*.tif').replace("\\", "/")
+
+    imagens = glob.glob(padrao_png) + glob.glob(padrao_tif)
 
     lista_de_resultados = []
 
     nome_da_classe = os.path.basename(diretorio_org)
-    print('Coletando características Fractais de Percolaçãodas imagens da pasta - ', nome_da_classe )
+    print('Coletando características Fractais de Percolaçãodas da pasta - ', nome_da_classe )
+    
+    for n, caminho in enumerate(imagens):
 
+        print(f"Calculando Percolação ({n+1} / {len(imagens)})")
 
-    for caminho in imagens:
-      
         img_pil = Image.open(caminho)
         img_pil_resized = img_pil.resize((224, 224), Image.BILINEAR)
         PIC = np.array(img_pil_resized)
