@@ -3,6 +3,7 @@
 # ========================
 testes/
 codigos-fractal-matlab/
+entradas/
 
 teste.py
 *.log
