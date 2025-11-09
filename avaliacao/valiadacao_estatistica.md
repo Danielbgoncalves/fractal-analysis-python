@@ -2,7 +2,7 @@
 
 ## Resumo
 
-Este projeto compara a implementação em Python de descritores fractais com a implementação de referência em MATLAB, estabelecida como padrão a ser alcançado. A análise abrange **363 descritores fractais** extraídos de **20 amostras**, demonstrando alta concordância entre as implementações.
+Este projeto compara a implementação em Python de descritores fractais com a implementação de referência em MATLAB, estabelecida como padrão a ser alcançado. A análise abrange **363 descritores fractais** extraídos de **228 amostras** de imagens hitológicas reais, demonstrando alta concordância entre as implementações.
 
 ---
 
@@ -12,11 +12,11 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 | Métrica | Valor | Interpretação |
 |---------|-------|---------------|
-| **Erro Absoluto Médio** | 0.002432 | Diferença média de ~0.002 entre implementações |
-| **Erro Relativo Médio** | 0.0823% | **Excelente**: < 0.1% de desvio relativo |
-| **RMSE Médio** | 0.002969 | Raiz do erro quadrático muito baixa |
-| **Correlação Média** | 0.999719 | Bom demais: r > 0.999 |
-| **Concordância Estatística** | 332/363 (91.46%) | Maioria sem diferença significativa (p > 0.05) |
+| **Erro Absoluto Médio** | 0.001667 | Diferença média de ~0.002 entre implementações |
+| **Erro Relativo Médio** | 0.0656% | **Excelente**: < 0.1% de desvio relativo |
+| **RMSE Médio** | 0.006383 | Raiz do erro quadrático muito baixa |
+| **Correlação Média** | 0.999984 | Bom demais: praticamente +1 |
+| **Concordância Estatística** | 165/363 (~45%) | Pouca diferença significativa em quse metade (p > 0.05) |
 
 ### TL; DR
 **A implementação Python é estatisticamente equivalente ao MATLAB**, com desvios desprezíveis que podem ser atribuídos a diferenças de precisão numérica entre as plataformas.
@@ -31,22 +31,21 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 ![Erro Relativo - Visão Geral](plots\Erro_Relativo_por_Coluna_Visão_Geral.png)
 
-- **Destaque**: Os descritores próximos do final apresentam erro de ~12%
+- **Destaque**: Os descritores próximos do final apresentam erro de ~8%
 - **Contexto**: É um outlier isolado; os demais 360 descritores têm erro próximo de zero
 
 #### **Primeiros 360 Descritores**
 
 ![Erro Relativo - 360 descritores](plots\Erro_Relativo_por_Coluna_Primeiros_360_descritores.png)
 
-- **Comportamento**: Erros extremamente baixos e uniformes (< 0.003%)
-- **Padrão**: Ruído numérico típico de operações em ponto flutuante
-- **Outliers**: Poucos picos isolados, provavelmente devido a descritores com valores próximos de zero (talvez?)
+- **Comportamento**: Erros baixos (< 0.4%)
+- **Outliers**: Poucos picos isolados, provavelmente devido a descritores com valores próximos de zero (talvez? n sei)
 
 #### **Últimos 3 Descritores**
 
 ![Erro Relativo - Últimos 3](plots\Erro_Relativo_por_Coluna_Ultimos_3_descritores.png)
 
-- **Observação crítica**: Erro relativo mais elevado (5-12%)
+- **Observação crítica**: Erro relativo mais elevado (3-8%)
 - **Causa provável**: 
   - Há, nas duas versões, tanto MATLAB quanto Python, uma função dedicada ao cálculo da Dimensão Fractal - descritor analisado aqui -, contudo ela não é utilizada. O cálculo é feito por meio de algoritmo de regressão linear em ambos.
   - A diferente implementação desses algoritmos em cada ambiente deve ser o responsável pela diferença.
@@ -60,6 +59,14 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 - **Significado**: Relação linear perfeita entre as implementações
 - **Desvios**: Imperceptíveis visualmente, confirmando a equivalência numérica
 
+### 3. Teste Estatístico de Hpótese
+
+![Dispersão Global](plots\Diferenca_estatistica.png)
+
+- **Interpretação**: Pontos acima da linha tracejada aceitam a hipótese de não ter diferença nos resultados
+- **Significado**: o teste avalia, para cada descritor, se há diferença estatisticamente significativa entre os resultados do Python e do MATLAB. Valores de p acima de 0.05 indicam que as implementações geram resultados equivalentes.
+- **Desvios**: as poucas colunas com p abaixo de 0.05 indicam discrepâncias numéricas sutis em descritores específicos.
+
 ---
 
 ## Análise Detalhada
@@ -67,22 +74,23 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 ### Distribuição de Erros Relativos
 
 ```
-Faixa de Erro        | Descritores | Percentual
----------------------|-------------|------------
-< 0.01%              | 360         | 99.2%
-0.01% - 1%           | 0           | 0%
-1% - 5%              | 0           | 0%
-5% - 15%             | 3           | 0.8%
+Faixa de Erro | Descritores | Percentual
+--------------|-------------|------------
+< 0.01%       |         180 |      49.6%
+0.01% - 1%    |         180 |      49.6%
+1% - 5%       |           2 |       0.6%
+5% - 15%      |           1 |       0.3%
 ```
 
 ### Teste t Pareado (α = 0.05)
 
 - **Hipótese nula**: Não há diferença entre as médias das implementações
-- **Resultado**: 92% dos descritores **não rejeitam H₀**
-- **Conclusão**: As implementações são estatisticamente indistinguíveis na maioria dos casos
+- **Resultado**: 45% dos descritores **não rejeitam H₀**
+- **Conclusão**: As duas implementações (Python e MATLAB) produzem resultados estatisticamente equivalentes em cerca de 45% dos descritores, indicando alta consistência geral entre os métodos. As diferenças observadas nos demais descritores são pequenas, mas detectáveis estatisticamente.
 - Finalmente utilizando estatística de vdd !!!
 
 ---
+
 ## Otimizações de Performance
 
 Durante a validação inicial, a implementação em Python apresentou tempos de execução muito superiores ao MATLAB, especialmente nas funções da família **`pmr`**, que são naturalmente intensivas em operações numéricas.  
@@ -103,13 +111,22 @@ Nessa parte do código, houve necessidade de substituir a função de rotulagem 
 
 Essa nova versão foi escrita em Python puro, mas com o **Numba** aplicado para compilação JIT (Just-In-Time). Além de eliminar dependências externas, ela trouxe grande ganho de velocidade ao evitar overheads de interface entre Python e C durante laços internos.
 
-### Comparativo de Tempos (20 imagens)
+### Comparativo de Tempos 
+#### 20 imagens
 
 | Ambiente | Tempo Total | Observações |
 |-----------|--------------|-------------|
 | **MATLAB** | 35,17 min | Implementação de referência |
 | **Python (com Numba)** | 5,8 min | Redução drástica de tempo com mesmo resultado |
 | **Python (sem Numba)** | ≈ 5 horas (6 imagens) | Execução inviável para datasets maiores |
+
+#### 114 imagens
+
+| Ambiente | Tempo Total | Observações |
+|-----------|--------------|-------------|
+| **MATLAB** | 3.13h  | Implementação de referência |
+| **Python (com Numba)** | 30,68 min | Redução drástica de tempo com resultado muito próximo |
+
 
 > **Resumo:** As otimizações com Numba tornaram a implementação Python não apenas equivalente numericamente ao MATLAB, mas também **significativamente mais rápida**, viabilizando análises em larga escala.
 
@@ -121,11 +138,8 @@ pip install pandas numpy numba matplotlib
 ```
 
 ---
-
-
-
 ## Conclusões
 
-- Equivalência numérica muito boa (erro médio < 0.1%)
+- Equivalência numérica muito boa 
 - Alta reprodutibilidade estatística
 - 🤓🤩
