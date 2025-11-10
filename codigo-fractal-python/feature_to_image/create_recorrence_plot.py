@@ -16,9 +16,10 @@ def create_recorrence_plot(signal):
         x0 = i
         for j in range(i, N):
             y0 = j
-            distance = np.linalg.norm(signal[i,:], signal[j,:])
+            distance = np.linalg.norm(signal[i,:] - signal[j,:])
             buffer[x0, y0] = distance
             buffer[y0, x0] = distance
-    
+
+
     return buffer
 
