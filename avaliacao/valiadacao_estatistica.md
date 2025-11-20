@@ -29,7 +29,7 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 #### **Visão Geral Completa**
 
-![Erro Relativo - Visão Geral](plots\Erro_Relativo_por_Coluna_Visão_Geral.png)
+![Erro Relativo - Visão Geral](plots/Erro_Relativo_por_Coluna_Visão_Geral.png)
 
 - **Destaque**: Os descritores próximos do final apresentam erro de ~8%
 - **Contexto**: É um outlier isolado; os demais 360 descritores têm erro próximo de zero
