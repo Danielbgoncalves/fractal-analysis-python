@@ -36,14 +36,14 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 #### **Primeiros 360 Descritores**
 
-![Erro Relativo - 360 descritores](plots\Erro_Relativo_por_Coluna_Primeiros_360_descritores.png)
+![Erro Relativo - 360 descritores](plots/Erro_Relativo_por_Coluna_Primeiros_360_descritores.png)
 
 - **Comportamento**: Erros baixos (< 0.4%)
 - **Outliers**: Poucos picos isolados, provavelmente devido a descritores com valores próximos de zero (talvez? n sei)
 
 #### **Últimos 3 Descritores**
 
-![Erro Relativo - Últimos 3](plots\Erro_Relativo_por_Coluna_Ultimos_3_descritores.png)
+![Erro Relativo - Últimos 3](plots/Erro_Relativo_por_Coluna_Ultimos_3_descritores.png)
 
 - **Observação crítica**: Erro relativo mais elevado (3-8%)
 - **Causa provável**: 
@@ -53,7 +53,7 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 ### 2. Dispersão Global MATLAB vs. Python
 
-![Dispersão Global](plots\Dispersao_global.png)
+![Dispersão Global](plots/Dispersao_global.png)
 
 - **Interpretação**: Pontos alinhados perfeitamente sobre a diagonal (y = x)
 - **Significado**: Relação linear perfeita entre as implementações
@@ -61,7 +61,7 @@ Este projeto compara a implementação em Python de descritores fractais com a i
 
 ### 3. Teste Estatístico de Hpótese
 
-![Dispersão Global](plots\Diferenca_estatistica.png)
+![Dispersão Global](plots/Diferenca_estatistica.png)
 
 - **Interpretação**: Pontos acima da linha tracejada aceitam a hipótese de não ter diferença nos resultados
 - **Significado**: o teste avalia, para cada descritor, se há diferença estatisticamente significativa entre os resultados do Python e do MATLAB. Valores de p acima de 0.05 indicam que as implementações geram resultados equivalentes.
