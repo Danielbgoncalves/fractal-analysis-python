@@ -1,6 +1,13 @@
 import numpy as np
 from numba import njit
 
+'''
+Função auxiliar usadas nos arquivos MATLAB mas sem 
+correspondência direta em função do python (aparentemente)
+Aí implementei
+'''
+
+
 @njit
 def mat2gray(arr):
     arr = arr.astype(np.float64)
