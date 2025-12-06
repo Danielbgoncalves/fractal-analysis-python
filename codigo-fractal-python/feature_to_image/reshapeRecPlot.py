@@ -12,6 +12,7 @@ import numpy as np
 from create_recorrence_plot import create_recorrence_plot
 import imageio.v3 as iio
 from numba import njit
+import os
 
 @njit
 def mat2gray(arr):
@@ -64,6 +65,9 @@ def reshapeRecPlot(destino, features):
 
     imgs = processar_features(n, new_features)
 
+    path = f'{destino}/F-RecPlot'
+    os.makedirs(path, exist_ok=True)
+
     for n, img in enumerate(imgs):
         img_uint8 = (img * 255).astype(np.uint8)
-        iio.imwrite(f'{destino}/F-RecPlot_{n+1}.png', img_uint8)
+        iio.imwrite(f'{path}/{n+1}.png', img_uint8)
