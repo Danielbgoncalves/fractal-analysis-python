@@ -1,0 +1,11 @@
+reshape,fold,accuracy,f1_score
+F-RecPlot,1,0.9782608695652174,0.9782505910165484
+F-RecPlot,2,1.0,1.0
+F-RecPlot,3,1.0,1.0
+F-RecPlot,4,1.0,1.0
+F-RecPlot,5,1.0,1.0
+F-Classical,1,1.0,1.0
+F-Classical,2,1.0,1.0
+F-Classical,3,0.9782608695652174,0.9782505910165484
+F-Classical,4,1.0,1.0
+F-Classical,5,0.9555555555555556,0.9555335968379447
