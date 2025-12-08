@@ -5,6 +5,7 @@ testes/
 codigos-fractal-matlab/
 entradas/
 codigo-fractal-python/feature_to_image/saida/
+ztestes/
 
 teste.py
 *.log
