@@ -6,6 +6,17 @@ from sklearn.model_selection import StratifiedKFold
 import pandas as pd
 import numpy as np
 
+'''
+    Treina 3 modelos de predição diferentes 
+    - Random Forest
+    - Suport Vector Machine
+    - Rede Neural Artificial 
+    na predição de carcinoma ou não nas mesmas imagens, roda com 2 CSVs:
+        - LBP
+        - Fractais
+    A ideia é comparar os resultados.
+'''
+
 def avaliar_modelos(x, y, descritor, destino):
 
     skf = StratifiedKFold(n_splits = 5, shuffle=True, random_state=42)
@@ -102,50 +113,45 @@ if __name__ == '__main__':
     imgs_x = pd.DataFrame(flattened_imgs)
     imgs_y = pd.Series(imgs_y)
 
-    print("Shape X:", imgs_x.shape)
-    print("Shape y:", imgs_y.shape)
-
-    print(len(imagens) )
-
     print("Avaliando ")
-    # avaliar_modelos(lbp_x, lbp_y, 'LBP', destino)
-    # avaliar_modelos(fractal_x, fractal_y, 'fractal', destino)
+    avaliar_modelos(lbp_x, lbp_y, 'LBP', destino)
+    avaliar_modelos(fractal_x, fractal_y, 'fractal', destino)
     avaliar_modelos(imgs_x, imgs_y, 'imgs_f-recplot4', destino)
 
 
-def load_dataset(path):
-    X_fd = []
-    X_lbp = []
-    X_rp = []
-    X_seq = []
-    y = []
+# def load_dataset(path):
+#     X_fd = []
+#     X_lbp = []
+#     X_rp = []
+#     X_seq = []
+#     y = []
 
-    for label, clss in enumerate(sorted(os.listdir(path))):
-        class_path = os.path.join(path, clss)
+#     for label, clss in enumerate(sorted(os.listdir(path))):
+#         class_path = os.path.join(path, clss)
 
-        for arq in os.listdir(class_path):
-            img_path = os.path.join(class_path, arq)
-            img = cv2.imread(img_path)
+#         for arq in os.listdir(class_path):
+#             img_path = os.path.join(class_path, arq)
+#             img = cv2.imread(img_path)
 
-            if img is None:
-                continue
+#             if img is None:
+#                 continue
 
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            seq = image_to_sequence(gray)
+#             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#             seq = image_to_sequence(gray)
 
-            # FD
-            fd = higuchi_fd(seq)
+#             # FD
+#             fd = higuchi_fd(seq)
 
-            # LBP
-            lbp_hist = extract_lbp(img)
+#             # LBP
+#             lbp_hist = extract_lbp(img)
 
-            # RP
-            rp_img = recurrence_image(seq)
-            rp_flat = rp_img.flatten()
+#             # RP
+#             rp_img = recurrence_image(seq)
+#             rp_flat = rp_img.flatten()
 
-            X_fd.append([fd])
-            X_lbp.append(lbp_hist)
-            X_rp.append(rp_flat)
-            y.append(label)
+#             X_fd.append([fd])
+#             X_lbp.append(lbp_hist)
+#             X_rp.append(rp_flat)
+#             y.append(label)
 
-    return np.array(X_fd), np.array(X_lbp), np.array(X_rp), np.array(y)
+#     return np.array(X_fd), np.array(X_lbp), np.array(X_rp), np.array(y)
