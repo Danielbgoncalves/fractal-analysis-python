@@ -10,6 +10,11 @@ ztestes/
 teste.py
 *.log
 
+#
+# Quero salvo mas não quero comitar
+#
+**/extra/
+
 # ========================
 # Arquivos de Cache do Python
 # ========================
