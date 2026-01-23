@@ -34,9 +34,9 @@ def scriptLACDF3Distances(diretorio_org):
 
     padrao_png = os.path.join(diretorio_org, '*.png').replace("\\", "/")
     padrao_tif = os.path.join(diretorio_org, '*.tif').replace("\\", "/")
+    padrao_jpg = os.path.join(diretorio_org, '*.tif').replace("\\", "/")
 
-    imagens = glob.glob(padrao_png) + glob.glob(padrao_tif)
-
+    imagens = glob.glob(padrao_png) + glob.glob(padrao_tif) + padrao_jpg 
 
     lista_de_resultados = []
 
