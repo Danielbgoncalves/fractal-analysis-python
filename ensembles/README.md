@@ -79,7 +79,7 @@
   └─ Fold 5: 4/5 treino, 1/5 validação
 ```
 
-### Hiperparâmetros
+### Hiperparâmetro
 
 ```python
 IMG_SIZE = 224 × 224          # Tamanho padrão MobileNet/EfficientNet

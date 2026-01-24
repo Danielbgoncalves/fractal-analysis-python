@@ -13,7 +13,7 @@ def create_imgs(origem, destino):
     features = df.to_numpy(dtype=np.float64)
 
     reshapeRecPlot(destino, features)
-    reshapeClassical(destino, features)
+    #reshapeClassical(destino, features)
 
     toc = time.time()
     intervalo = toc - tic
